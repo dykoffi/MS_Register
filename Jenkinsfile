@@ -23,7 +23,7 @@ pipeline{
                 }
                  stage("Run 4 instances"){
                     steps{
-                        sh 'echo PORTOCOL=http > info.env'
+                        sh 'echo PROTOCOL=http > info.env'
                         sh 'echo PORT=${APP_PORT} >> info.env'
                         sh 'echo HOST=localhost >> info.env'
                         sh 'pm2 start index.js -i 4 --name pm2_Ins_MS_Register'
