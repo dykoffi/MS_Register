@@ -10,9 +10,11 @@ pipeline{
         stage("Packages installation"){
             steps{
                 sh "yarn install"
+                sh "mkdir tests/reports"
             }
         }
-        stage("Test") {
+
+        stage("Test"){
             stages{
                 stage("Create test DB"){
                     steps{
@@ -21,7 +23,8 @@ pipeline{
                         sh 'npx prisma db push'
                     }
                 }
-                 stage("Run 4 instances"){
+
+                stage("Run 4 instances"){
                     steps{
                         sh 'echo PROTOCOL=http > info.env'
                         sh 'echo PORT=${APP_PORT} >> info.env'
@@ -30,23 +33,46 @@ pipeline{
                         sh 'pm2 ps'
                     }
                 }
-                stage("Test routes Without code 500"){
+
+                stage("Frisby test routes"){
                     steps{
                         sh 'yarn test'
                     }
                 }
-                stage("Run Artillery during 20s"){
+
+                stage("Artillery test scenarios (20s)"){
                     steps{
                         sh "npx artillery run tests/scen1.yml -c tests/config.yml -o tests/report-test1.json -t http://localhost:${APP_PORT}"
                         sh 'npx artillery report tests/report-test1.json -o tests/report-test1.html'
                     }
-                }
-            }
+lkjhghoih            }
+
             post{
                 always{
                     sh 'docker stop dbTest'
                     sh 'pm2 delete pm2_Ins_MS_Register'
                 }
+            }
+        }
+
+        stage("Staging"){
+
+        }
+
+        stage("Create packages"){
+
+        }
+
+        stage("Deployment"){
+            environment{
+
+            }
+            parallel {
+                stage("Deploy to planetHoster"){}
+                stage("Deploy to AWS EC2"){}
+                stage("Deploy to AWS ECS"){}
+                stage("Publish to AWS ECR"){}
+                stage("Publish to DockerHUB"){}
             }
         }
     }
