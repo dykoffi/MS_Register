@@ -8,7 +8,9 @@ pipeline{
     }
     stages{
         stage("Packages installation"){
-           sh "yarn install"
+            steps{
+                sh "yarn install"
+            }
         }
         stage("Test") {
             stages{
