@@ -36,7 +36,7 @@ pipeline{
 
                 stage("Frisby test routes"){
                     steps{
-                        sh 'yarn test'
+                        sh 'yarn test > tests/reports/frisby.test'
                     }
                 }
 
@@ -52,6 +52,10 @@ pipeline{
                 always{
                     sh 'docker stop dbTest'
                     sh 'pm2 delete pm2_Ins_MS_Register'
+                }
+
+                success {
+                    archiveArtifacts artifacts: "tests/reports/*.html", fingerprint: true
                 }
             }
         }
