@@ -52,7 +52,6 @@ pipeline{
     }
     post{
         always{
-            sh 'docker stop dbTest'
             echo "========always========"
         }
         success{
