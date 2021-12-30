@@ -57,11 +57,11 @@ pipeline{
         }
 
         stage("Staging"){
-
+            steps{}
         }
 
         stage("Create packages"){
-
+            steps{}
         }
 
         stage("Deployment"){
@@ -69,11 +69,11 @@ pipeline{
 
             }
             parallel {
-                stage("Deploy to planetHoster"){}
-                stage("Deploy to AWS EC2"){}
-                stage("Deploy to AWS ECS"){}
-                stage("Publish to AWS ECR"){}
-                stage("Publish to DockerHUB"){}
+                stage("Deploy to planetHoster"){ steps{}}
+                stage("Deploy to AWS EC2"){ steps{}}
+                stage("Deploy to AWS ECS"){ steps{}}
+                stage("Publish to AWS ECR"){ steps{}}
+                stage("Publish to DockerHUB"){ steps{}}
             }
         }
     }
