@@ -14,13 +14,14 @@ pipeline{
             stages{
                 stage("Create test DB"){
                     steps{
-                        sh 'docker run -dp 5500:5432 --name dbTest -e POSTGRES_PASSWORD=1234 -e POSGTGRES_USER=test postgres'
+                        sh 'docker run -dp 5500:5432 --rm --name dbTest -e POSTGRES_PASSWORD=1234 -e POSGTGRES_USER=test postgres'
                         sh 'cat DATABASE_URL=postgres://test:1234@localhost:5500/test > .env'
                     }
                 }
                  stage("Run 4 instances"){
                     steps{
                         sh 'pm2 start index.js -i 4'
+                        sh 'pm2 ps'
                     }
                 }
                 stage("Test routes Without code 500"){
@@ -39,6 +40,7 @@ pipeline{
     }
     post{
         always{
+            sh 'docker stop dbTest'
             echo "========always========"
         }
         success{
