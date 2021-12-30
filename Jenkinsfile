@@ -16,7 +16,7 @@ pipeline{
             stages{
                 stage("Create test DB"){
                     steps{
-                        sh "docker run -dp ${DB_PORT}:5432 --rm --name dbTest -e POSTGRES_PASSWORD=1234 -e POSGTGRES_USER=test postgres"
+                        sh "docker run -dp ${DB_PORT}:5432 --rm --name dbTest -e POSTGRES_PASSWORD=1234 -e POSTGRES_USER=test postgres"
                         sh "echo DATABASE_URL=postgres://test:1234@localhost:${DB_PORT}/test > .env"
                         sh 'npx prisma db push'
                     }
