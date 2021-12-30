@@ -1,9 +1,11 @@
 "use strict"
 
+const { join } = require('path');
 const frisby = require('frisby')
-require('dotenv').config()
+require('dotenv').config({ path: join(process.cwd(), "info.env") })
 
 const URL = `${process.env.PROTOCOL}://${process.env.HOST}:${process.env.PORT}`
+console.log(URL);
 
 describe('Patient routes tester', () => {
 
