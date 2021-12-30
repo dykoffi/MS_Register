@@ -1,0 +1,177 @@
+{
+    "/Patient": {
+        "get": {
+            "operationId": "getPatients",
+            "tags": [
+                "Patient"
+            ],
+            "description": "\"Returns all Patients",
+            "responses": {
+                "200": {
+                    "description": "List of Patients"
+                },
+                "403": {
+                    "description": "Unauthorized"
+                },
+                "500": {
+                    "description": "Internal Error"
+                }
+            }
+        },
+        "post": {
+            "operationId": "addPatient",
+            "tags": [
+                "Patient"
+            ],
+            "description": "Add new Patient",
+            "requestBody": {
+                "content": {
+                    "application/x-www-form-urlencoded": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "nom": {
+                                    "type": "string"
+                                },
+                                "prenoms": {
+                                    "type": "string"
+                                },
+                                "dateNaissance": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                },
+                                "numCNI": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "201": {
+                    "description": "table created"
+                },
+                "403": {
+                    "description": "Unauthorized"
+                },
+                "500": {
+                    "description": "Internal Error"
+                }
+            }
+        },
+        "parameters": [
+            {
+                "in": "header",
+                "name": "x-access-token",
+                "schema": {
+                    "type": "string"
+                }
+            }
+        ]
+    },
+    "/Patient/{id}": {
+        "get": {
+            "operationId": "getPatient",
+            "tags": [
+                "Patient"
+            ],
+            "description": "Returns specific Patient designated by id",
+            "responses": {
+                "200": {
+                    "description": "Patient basic information"
+                },
+                "403": {
+                    "description": "Unauthorized"
+                },
+                "404": {
+                    "description": "Patient not found"
+                },
+                "500": {
+                    "description": "Internal Error"
+                }
+            }
+        },
+        "put": {
+            "operationId": "updatePatient",
+            "tags": [
+                "Patient"
+            ],
+            "description": "Update Patient",
+            "requestBody": {
+                "content": {
+                    "application/x-www-form-urlencoded": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "nom": {
+                                    "type": "string"
+                                },
+                                "prenoms": {
+                                    "type": "string"
+                                },
+                                "dateNaissance": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                },
+                                "numCNI": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "201": {
+                    "description": "Patient updated"
+                },
+                "403": {
+                    "description": "Unauthorized"
+                },
+                "404": {
+                    "description": "Patient not found"
+                },
+                "500": {
+                    "description": "Internal Error"
+                }
+            }
+        },
+        "delete": {
+            "operationId": "deletePatient",
+            "tags": [
+                "Patient"
+            ],
+            "description": "Delete specific Patient designated by id",
+            "responses": {
+                "200": {},
+                "403": {
+                    "description": "Unauthorized"
+                },
+                "404": {
+                    "description": "Patient not found"
+                },
+                "500": {
+                    "description": "Internal Error"
+                }
+            }
+        },
+        "parameters": [
+            {
+                "in": "path",
+                "name": "id",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            {
+                "in": "header",
+                "name": "x-access-token",
+                "schema": {
+                    "type": "string"
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,11 @@
+scenarios:
+  - name: "Seed database"
+    flow:
+      - post:
+          url: "/patient"
+          json:
+              nom: "{{ nom }}"
+              prenoms: "{{ prenoms }}"
+              dateNaissance: "{{ dateNaissance }}"
+              numCNI: "{{ numCNI }}"
+

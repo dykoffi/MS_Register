@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "Patient": {
+      "type": "object",
+      "properties": {
+        "id_": {
+          "type": "integer"
+        },
+        "nom": {
+          "type": "string"
+        },
+        "prenoms": {
+          "type": "string"
+        },
+        "dateNaissance": {
+          "type": "string"
+        },
+        "numCNI": {
+          "type": "string"
+        }
+      }
+    },
+    "Token_": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pass": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Log_": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "protocol": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "method": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "hostname": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "httpVersion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "statusCode": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "userIp": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "userReferer": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "userAgent": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "patient": {
+      "$ref": "#/definitions/Patient"
+    },
+    "token_": {
+      "$ref": "#/definitions/Token_"
+    },
+    "log_": {
+      "$ref": "#/definitions/Log_"
+    }
+  }
+}

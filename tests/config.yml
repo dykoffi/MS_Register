@@ -1,0 +1,21 @@
+config:
+  http:
+    pool: 10
+    maxSockets: 5
+    extendedMetrics: true
+  target: "http://localhost:8888"
+  payload:
+    path: "data.csv"
+    fields:
+      - "nom"
+      - "prenoms"
+      - "dateNaissance"
+      - "numCNI"
+  phases:
+    - duration: 5
+      arrivalRate: 5
+      name: Warm up
+    - duration: 20
+      arrivalRate: 500
+      rampTo: 1000000
+      name: danger

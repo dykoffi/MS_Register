@@ -1,0 +1,45 @@
+{
+    "name": "register",
+    "version": "1.0.0",
+    "description": "",
+    "main": "./index.js",
+    "private": false,
+    "dependencies": {
+        "@prisma/client": "3.7.0",
+        "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
+        "cqx-secure": "^1.0.10",
+        "dotenv": "^10.0.0",
+        "express": "^4.17.2",
+        "helmet": "^4.6.0",
+        "jsonwebtoken": "^8.5.1",
+        "morgan": "^1.10.0",
+        "swagger-ui-express": "^4.3.0"
+    },
+    "scripts": {
+        "start": "node ./index.js",
+        "test": "jest",
+        "test:cover": "jest --coverage --ci --reporters=default --reporters=jest-junit --detectOpenHandles"
+    },
+    "devDependencies": {
+        "frisby": "^2.1.3",
+        "jest": "^27.4.4",
+        "jest-junit": "^13.0.0",
+        "prisma": "^3.7.0",
+        "prisma-json-schema-generator": "^1.6.0"
+    },
+    "author": {
+        "email": "koffiedy@gmail.com",
+        "name": "KOFFI Edy",
+        "url": "https://www.linkedin.com/in/edy-koffi-948494192/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/author/cqx.git"
+    },
+    "bugs": {
+        "url": "https://github.com/author/cqx/issues"
+    },
+    "homepage": "git+https://github.com/author/cqx#readme",
+    "license": "MIT"
+}
