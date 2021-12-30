@@ -3,8 +3,6 @@ pipeline{
     environment {
         VERSION = "1.0.0"
         NAME = "register"
-        // DB_SOURCE = credentials("DB_SOURCE_REGISTER")
-
     }
     stages{
         stage("Packages installation"){
