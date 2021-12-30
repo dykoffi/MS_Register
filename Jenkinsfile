@@ -57,23 +57,47 @@ pipeline{
         }
 
         stage("Staging"){
-            steps{}
+            steps{
+                sh 'echo staging'
+            }
         }
 
         stage("Create packages"){
-            steps{}
+            steps{
+                sh 'echo package'
+            }
         }
 
         stage("Deployment"){
             environment{
-
+                DOCKER_HUB="edykoffi"
             }
             parallel {
-                stage("Deploy to planetHoster"){ steps{}}
-                stage("Deploy to AWS EC2"){ steps{}}
-                stage("Deploy to AWS ECS"){ steps{}}
-                stage("Publish to AWS ECR"){ steps{}}
-                stage("Publish to DockerHUB"){ steps{}}
+                stage("Deploy to planetHoster"){ 
+                    steps{
+                        sh 'echo deploy'
+                    }
+                }
+                stage("Deploy to AWS EC2"){ 
+                    steps{
+                        sh 'echo deploy'
+                    }
+                }
+                stage("Deploy to AWS ECS"){ 
+                    steps{
+                        sh 'echo deploy'
+                    }
+                }
+                stage("Publish to AWS ECR"){ 
+                    steps{
+                        sh 'echo deploy'
+                    }
+                }
+                stage("Publish to DockerHUB"){ 
+                    steps{
+                        sh 'echo deploy'
+                    }
+                }
             }
         }
     }
