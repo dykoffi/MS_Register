@@ -25,7 +25,7 @@ pipeline{
                 }
                 stage("Test routes Without code 500"){
                     steps{
-                        sh 'yarn test:cover'
+                        sh 'yarn test'
                     }
                 }
                 stage("Run Artillery during 20s"){
