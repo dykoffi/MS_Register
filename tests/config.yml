@@ -17,5 +17,5 @@ config:
       name: Warm up
     - duration: 20
       arrivalRate: 500
-      rampTo: 1000000
+      rampTo: 1000
       name: danger
