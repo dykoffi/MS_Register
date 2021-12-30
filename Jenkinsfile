@@ -37,7 +37,7 @@ pipeline{
                 }
                 stage("Run Artillery during 20s"){
                     steps{
-                        sh "npx artillery run test/scen1.yml -c test/config.yml -o report-test1.json -t http://localhost:${APP_PORT}"
+                        sh "npx artillery run tests/scen1.yml -c tests/config.yml -o report-test1.json -t http://localhost:${APP_PORT}"
                         sh 'npx artillery report report-test1.json -o report-test1.html'
                     }
                 }
