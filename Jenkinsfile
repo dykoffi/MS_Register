@@ -10,7 +10,7 @@ pipeline{
         stage("Packages installation"){
             steps{
                 sh "yarn install"
-                sh "mkdir tests/reports"
+                sh "mkdir -p tests/reports"
             }
         }
 
