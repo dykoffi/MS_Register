@@ -55,7 +55,7 @@ pipeline{
                 }
 
                 success {
-                    archiveArtifacts artifacts: 'tests/reports/**.html', fingerprint: true
+                    archiveArtifacts artifacts: 'tests/reports/**.*', fingerprint: true
                 }
             }
         }
