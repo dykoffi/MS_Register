@@ -43,7 +43,7 @@ pipeline{
                 stage("Artillery test scenarios (20s)"){
                     steps{
                         sh "npx artillery run tests/scen1.yml -c tests/config.yml -o tests/report-test1.json -t http://localhost:${APP_PORT}"
-                        sh 'npx artillery report tests/report-test1.json -o tests/report-test1.html'
+                        sh 'npx artillery report tests/reports/report-test1.json -o tests/reports/report-test1.html'
                     }
                 }
             }
@@ -55,7 +55,7 @@ pipeline{
                 }
 
                 success {
-                    archiveArtifacts artifacts: 'tests/reports/**/*.html', fingerprint: true
+                    archiveArtifacts artifacts: 'tests/reports/**.html', fingerprint: true
                 }
             }
         }
