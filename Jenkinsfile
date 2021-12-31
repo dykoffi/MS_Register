@@ -74,7 +74,9 @@ pipeline{
 
         stage("Deployment"){
             environment{
-                DOCKER_HUB="edykoffi"
+                DOCKERHUB_CREDENTIALS = credentials('docker-hub-1')
+                PLANETHOSTER_CREDENTIALS = credentials('PLANETHOSTER_CREDENTIALS')
+                AWS_EC2_PRKEY = credentials('AWS_EC2_PRKEY')
             }
             parallel {
                 stage("Deploy to planetHoster"){ 
@@ -99,7 +101,14 @@ pipeline{
                 }
                 stage("Publish to DockerHUB"){ 
                     steps{
-                        sh 'echo deploy'
+                        sh 'docker push dykoffi/${APP_NAME}:${VERSION}'
+                        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                    }
+
+                    post{
+                        always{
+                            sh 'docker logout'
+                        }
                     }
                 }
             }
