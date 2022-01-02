@@ -1,11 +1,18 @@
 version: "3.9" # optional since v1.27.0
 services:
+  ms_register:
+      image: dykoffi/ms_register
+      container_name: ms_register
+      depends_on:
+        - db_dev
   db_dev:
     image: postgres
     container_name: register_db_dev
     environment:
-      - POSTGRES_USER=register_db_dev_user
+      - POSTGRES_USER=registerDB
       - POSTGRES_PASSWORD=1234
+    ports:
+      - 5555:5432
 
   db_test:
     image: postgres
@@ -22,3 +29,5 @@ services:
     environment:
       - POSTGRES_USER=register_db_dev_staging
       - POSTGRES_PASSWORD=1234
+    ports:
+      - 23587:5432

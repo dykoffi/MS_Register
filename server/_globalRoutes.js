@@ -5,9 +5,8 @@ const createError = require('http-errors');
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("../docs/_index");
 
-
 app.use('/Patient', require('../api/Patient/routes.js')); 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res, next) => { next(createError(404)) });
 app.use((err, req, res, next) => {

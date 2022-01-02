@@ -1,10 +1,10 @@
 pipeline{
     agent any
     environment {
-        APP_PORT = "53621"
-        DB_PORT = "52634"
-        VERSION = "1.0.0"
-        NAME = "register"
+        APP_NAME    = "register"
+        APP_PORT    = "53621"
+        DB_PORT     = "52634"
+        APP_VERSION = "1.0.0"
     }
     stages{
         stage("Packages installation"){
@@ -43,7 +43,7 @@ pipeline{
                 stage("Artillery test scenarios (20s)"){
                     steps{
                         sh "npx artillery run tests/scen1.yml -c tests/config.yml -o tests/reports/report-test1.json -t http://localhost:${APP_PORT}"
-                        sh 'npx artillery report tests/reports/report-test1.json -o tests/reports/report-test1.html'
+                        sh "npx artillery report tests/reports/report-test1.json -o tests/reports/report-test1.html"
                     }
                 }
             }
@@ -68,51 +68,52 @@ pipeline{
 
         stage("Create packages"){
             steps{
-                sh 'echo package'
+                sh "zip -r build.zip build"
+                sh "docker build -t dykoffi/${APP_NAME}:${APP_VERSION} ."
             }
         }
 
-        stage("Deployment"){
-            environment{
-                DOCKERHUB_CREDENTIALS = credentials('docker-hub-1')
-                PLANETHOSTER_CREDENTIALS = credentials('PLANETHOSTER_CREDENTIALS')
-                AWS_EC2_PRKEY = credentials('AWS_EC2_PRKEY')
-            }
-            parallel {
-                stage("Deploy to planetHoster"){ 
-                    steps{
-                        sh 'echo deploy'
-                    }
-                }
-                stage("Deploy to AWS EC2"){ 
-                    steps{
-                        sh 'echo deploy'
-                    }
-                }
-                stage("Deploy to AWS ECS"){ 
-                    steps{
-                        sh 'echo deploy'
-                    }
-                }
-                stage("Publish to AWS ECR"){ 
-                    steps{
-                        sh 'echo deploy'
-                    }
-                }
-                stage("Publish to DockerHUB"){ 
-                    steps{
-                        sh 'docker push dykoffi/${APP_NAME}:${VERSION}'
-                        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                    }
+        // stage("Deployment"){
+        //     environment{
+        //         DOCKERHUB_CREDENTIALS = credentials('docker-hub-1')
+        //         PLANETHOSTER_CREDENTIALS = credentials('PLANETHOSTER_CREDENTIALS')
+        //         AWS_EC2_PRKEY = credentials('AWS_EC2_PRKEY')
+        //     }
+        //     parallel {
+        //         stage("Deploy to planetHoster"){ 
+        //             steps{
+        //                 sh 'cqx deploy '
+        //             }
+        //         }
+        //         stage("Deploy to AWS EC2"){ 
+        //             steps{
+        //                 sh 'cqx deploy'
+        //             }
+        //         }
+        //         stage("Deploy to AWS ECS"){ 
+        //             steps{
+        //                 sh 'echo deploy'
+        //             }
+        //         }
+        //         stage("Publish to AWS ECR"){ 
+        //             steps{
+        //                 sh 'echo deploy'
+        //             }
+        //         }
+        //         stage("Publish to DockerHUB"){ 
+        //             steps{
+        //                 sh 'docker push dykoffi/${APP_NAME}:${APP_VERSION}'
+        //                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        //             }
 
-                    post{
-                        always{
-                            sh 'docker logout'
-                        }
-                    }
-                }
-            }
-        }
+        //             post{
+        //                 always{
+        //                     sh 'docker logout'
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
     }
     post{
         always{

@@ -5,6 +5,7 @@ const onFinished = require('on-finished');
 module.exports = function () {
     return (req, res, next) => {
         res.header("x-powered-by", "cqx")
+        console.log(req.headers);
         onFinished(res, async () => {
             await model.log_.create(
                 {
