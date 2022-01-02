@@ -70,8 +70,13 @@ pipeline{
             steps{
                 sh "cqx build"
                 sh "zip -r build.zip build"
-                sh "rm -rdf build"
                 sh "docker build -t dykoffi/${APP_NAME}:${APP_VERSION} ."
+            }
+
+            post{
+                always{
+                    sh "rm -rdf build"
+                }
             }
         }
 
