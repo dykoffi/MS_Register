@@ -4,7 +4,7 @@ pipeline{
         APP_NAME    = "register"
         APP_PORT    = "53621"
         DB_PORT     = "23586"
-        APP_VERSION = "1.0.0"
+        APP_VERSION = "1.2.0"
     }
     stages{
         stage("Packages installation"){
@@ -83,47 +83,47 @@ pipeline{
             }
         }
 
-        // stage("Deployment"){
-        //     environment{
-        //         DOCKERHUB_CREDENTIALS = credentials('docker-hub-1')
-        //         PLANETHOSTER_CREDENTIALS = credentials('PLANETHOSTER_CREDENTIALS')
-        //         AWS_EC2_PRKEY = credentials('AWS_EC2_PRKEY')
-        //     }
-        //     parallel {
-        //         stage("Deploy to planetHoster"){ 
-        //             steps{
-        //                 sh 'cqx deploy '
-        //             }
-        //         }
-        //         stage("Deploy to AWS EC2"){ 
-        //             steps{
-        //                 sh 'cqx deploy'
-        //             }
-        //         }
-        //         stage("Deploy to AWS ECS"){ 
-        //             steps{
-        //                 sh 'echo deploy'
-        //             }
-        //         }
-        //         stage("Publish to AWS ECR"){ 
-        //             steps{
-        //                 sh 'echo deploy'
-        //             }
-        //         }
-        //         stage("Publish to DockerHUB"){ 
-        //             steps{
-        //                 sh 'docker push dykoffi/${APP_NAME}:${APP_VERSION}'
-        //                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-        //             }
+        stage("Deployment"){
+            environment{
+                DOCKERHUB_CREDENTIALS = credentials('docker-hub-1')
+                PLANETHOSTER_CREDENTIALS = credentials('PLANETHOSTER_CREDENTIALS')
+                AWS_EC2_PRKEY = credentials('AWS_EC2_PRKEY')
+            }
+            parallel {
+                stage("Deploy to planetHoster"){ 
+                    steps{
+                        sh 'cqx deploy '
+                    }
+                }
+                stage("Deploy to AWS EC2"){ 
+                    steps{
+                        sh 'cqx deploy'
+                    }
+                }
+                stage("Deploy to AWS ECS"){ 
+                    steps{
+                        sh 'echo deploy'
+                    }
+                }
+                stage("Publish to AWS ECR"){ 
+                    steps{
+                        sh 'echo deploy'
+                    }
+                }
+                stage("Publish to DockerHUB"){ 
+                    steps{
+                        sh 'docker push dykoffi/${APP_NAME}:${APP_VERSION}'
+                        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                    }
 
-        //             post{
-        //                 always{
-        //                     sh 'docker logout'
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+                    post{
+                        always{
+                            sh 'docker logout'
+                        }
+                    }
+                }
+            }
+        }
     }
     post{
         always{
