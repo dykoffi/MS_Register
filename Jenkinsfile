@@ -3,7 +3,7 @@ pipeline{
     environment {
         APP_NAME    = "register"
         APP_PORT    = "53621"
-        DB_PORT     = "52634"
+        DB_PORT     = "23586"
         APP_VERSION = "1.0.0"
     }
     stages{
@@ -18,8 +18,8 @@ pipeline{
             stages{
                 stage("Create test DB"){
                     steps{
-                        sh "docker run -dp ${DB_PORT}:5432 --rm --name dbTest -e POSTGRES_PASSWORD=1234 -e POSTGRES_USER=test postgres"
-                        sh "echo DATABASE_URL=postgres://test:1234@localhost:${DB_PORT}/test > .env"
+                        sh "docker-compose up -d db_test"
+                        sh "echo DATABASE_URL=postgres://register_db_dev_test:1234@localhost:${DB_PORT}/test > .env"
                         sh 'npx prisma db push'
                     }
                 }
@@ -50,7 +50,7 @@ pipeline{
 
             post{
                 always{
-                    sh 'docker stop dbTest'
+                    sh 'docker-compose stop db_test'
                     sh 'pm2 delete pm2_Ins_MS_Register'
                 }
 
