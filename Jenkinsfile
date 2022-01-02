@@ -77,6 +77,9 @@ pipeline{
                 always{
                     sh "rm -rdf build"
                 }
+                success{
+                     archiveArtifacts artifacts: 'build.zip', fingerprint: true
+                }
             }
         }
 
