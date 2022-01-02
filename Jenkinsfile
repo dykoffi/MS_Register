@@ -4,7 +4,7 @@ pipeline{
         APP_NAME    = "register"
         APP_PORT    = "53621"
         DB_PORT     = "23586"
-        APP_VERSION = "1.2.0"
+        APP_VERSION = "1.2.1"
     }
     stages{
         stage("Packages installation"){
@@ -112,8 +112,8 @@ pipeline{
                 }
                 stage("Publish to DockerHUB"){ 
                     steps{
-                        sh 'docker push dykoffi/${APP_NAME}:${APP_VERSION}'
-                        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                        sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
+                        sh "docker push dykoffi/${APP_NAME}:${APP_VERSION}"
                     }
 
                     post{
